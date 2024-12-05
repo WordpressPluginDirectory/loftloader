@@ -11,6 +11,7 @@
 
 if ( ! class_exists( 'LoftLoader_Front' ) ) {
 	class LoftLoader_Front {
+		protected $html_loaded  = false;
 		protected $defaults;
 		protected $site_header_loaded = false;
 		protected $site_footer_loaded = false;
@@ -23,6 +24,7 @@ if ( ! class_exists( 'LoftLoader_Front' ) ) {
 				add_action( 'wp_head', array( $this, 'loader_custom_styles' ), 100 );
 				add_action( 'wp_footer', array( $this, 'load_inline_js' ), 99 );
 				add_filter( 'loftloader_modify_html', array( $this, 'show_loader_html' ) );
+				add_filter( 'loftloader_html', array( $this, 'loader_html' ) );
 				add_filter( 'body_class', array( $this, 'body_class' ) );
 			}
 		}
@@ -169,6 +171,63 @@ if ( ! class_exists( 'LoftLoader_Front' ) ) {
 			) );
 		}
 		/**
+		* Loader HTML
+		*/
+		public function loader_html( $loader ) {
+			if ( $this->html_loaded ) {
+				return '';
+			}
+ 			$image  = esc_url($this->get_loader_setting('loftloader_custom_img'));
+			$ending = esc_attr($this->get_loader_setting('loftloader_bg_animation'));
+			$wrap_class = array( 'pl-' . $this->type );
+
+			$html  = '<div id="loftloader-wrapper" class="' . implode( ' ', $wrap_class ) . '"' . $this->loader_attributes() . '>';
+			switch( $ending ) {
+				case 'fade':
+					$html .= '<div class="loader-section section-fade"></div>';
+					break;
+				case 'up':
+					$html .= '<div class="loader-section section-slide-up"></div>';
+					break;
+				case 'split-v':
+					$html .= '<div class="loader-section section-up"></div>';
+					$html .= '<div class="loader-section section-down"></div>';
+					break;
+				case 'no-animation':
+					$html .= '<div class="loader-section end-no-animation"></div>';
+					break;
+				default:
+					$html .= '<div class="loader-section section-left">';
+					$html .= '</div><div class="loader-section section-right"></div>';
+			}
+
+			$html .= '<div class="loader-inner"><div id="loader">';
+
+			if ( ! empty( $image ) ) {
+				// <!-- Only  image loading need the span with background -->
+				if ( in_array( $this->type, array( 'imgloading' ) ) ) {
+					$html .= $this->get_loader_type_loading_bg_image( $image );
+				}
+				if ( in_array( $this->type, array( 'frame', 'imgloading' ) ) ) {
+					$html .= $this->get_loader_image( $image, $this->type );
+				}
+			}
+			$html .= in_array( $this->type, array( 'imgloading' ) ) ? '' : '<span></span>';
+			$html .= '</div></div>';
+
+			if ( ! is_customize_preview() ) {
+				$close_description = $this->get_loader_setting( 'loftloader_show_close_tip' );
+				$html .= sprintf(
+					'<div class="loader-close-button" style="display: none;"><span class="screen-reader-text">%s</span>%s</div>',
+					esc_html__('Close', 'loftloader'),
+					empty($close_description) ? '' : sprintf('<span class="close-des">%s</span>', $close_description)
+				);
+			}
+			$html .= '</div>';
+			$this->html_loaded = true;
+			return $html;
+		}
+		/**
 		 * @description loftloader html
 		 */
 		public function show_loader_html( $origin ) {
@@ -176,55 +235,9 @@ if ( ! class_exists( 'LoftLoader_Front' ) ) {
 				$regexp ='/(<body[^>]*>)/i';
 				$split = preg_split( $regexp, $origin, 3, PREG_SPLIT_DELIM_CAPTURE );
 				if ( is_array( $split ) && ( 3 <= count( $split ) ) ) {
-					$image  = esc_url($this->get_loader_setting('loftloader_custom_img'));
-					$ending = esc_attr($this->get_loader_setting('loftloader_bg_animation'));
-					$wrap_class = array( 'pl-' . $this->type );
+					$html = apply_filters( 'loftloader_html', '' );
 
-					$html  = '<div id="loftloader-wrapper" class="' . implode( ' ', $wrap_class ) . '"' . $this->loader_attributes() . '>';
-					switch( $ending ) {
-						case 'fade':
-							$html .= '<div class="loader-section section-fade"></div>';
-							break;
-						case 'up':
-							$html .= '<div class="loader-section section-slide-up"></div>';
-							break;
-						case 'split-v':
-							$html .= '<div class="loader-section section-up"></div>';
-							$html .= '<div class="loader-section section-down"></div>';
-							break;
-						case 'no-animation':
-							$html .= '<div class="loader-section end-no-animation"></div>';
-							break;
-						default:
-							$html .= '<div class="loader-section section-left">';
-							$html .= '</div><div class="loader-section section-right"></div>';
-					}
-
-					$html .= '<div class="loader-inner"><div id="loader">';
-
-					if ( ! empty( $image ) ) {
-						// <!-- Only  image loading need the span with background -->
-						if ( in_array( $this->type, array( 'imgloading' ) ) ) {
-							$html .= $this->get_loader_type_loading_bg_image( $image );
-						}
-						if ( in_array( $this->type, array( 'frame', 'imgloading' ) ) ) {
-							$html .= $this->get_loader_image( $image, $this->type );
-						}
-					}
-					$html .= in_array( $this->type, array( 'imgloading' ) ) ? '' : '<span></span>';
-					$html .= '</div></div>';
-
-					if ( ! is_customize_preview() ) {
-						$close_description = $this->get_loader_setting( 'loftloader_show_close_tip' );
-						$html .= sprintf(
-							'<div class="loader-close-button" style="display: none;"><span class="screen-reader-text">%s</span>%s</div>',
-							esc_html__('Close', 'loftloader'),
-							empty($close_description) ? '' : sprintf('<span class="close-des">%s</span>', $close_description)
-						);
-					}
-					$html .= '</div>';
-
-					return $split[0] . $split[1] . $html . implode( '', array_slice( $split, 2 ) );
+					return empty( $html ) ? $origin : $split[0] . $split[1] . $html . implode( '', array_slice( $split, 2 ) );
 				}
 			}
 			return $origin;

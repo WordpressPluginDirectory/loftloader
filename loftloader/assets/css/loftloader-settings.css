@@ -6,7 +6,7 @@
  * Author: The Loft.Ocean Team
  * Author URI: https://www.loftocean.com
  * Description: LoftLoader (Lite Version) is a plugin for adding beautiful and smooth preload animation to your WordPress website. With setting options, you can choose from preset animations, add custom logo image, choose colours to match your branding, and amuse and impress your visitors while loading site content.
- * Version: 2.4.0
+ * Version: 2.5.0
 */
 @import url(https://fonts.googleapis.com/css?family=Lato:400,600);
 #customize-theme-controls.loftloader-controls-wrapper {
@@ -14,14 +14,14 @@
   #customize-theme-controls.loftloader-controls-wrapper .customize-section-title h3 {
     font-size: 18px;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.025em;
     color: #111; }
     #customize-theme-controls.loftloader-controls-wrapper .customize-section-title h3 span {
       letter-spacing: 0; }
   #customize-theme-controls.loftloader-controls-wrapper .customize-control-title {
     margin-top: 0;
     font-size: 12px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.025em;
     font-weight: bold;
     text-transform: none;
     color: #111; }
@@ -41,7 +41,7 @@
   #customize-theme-controls.loftloader-controls-wrapper button.button.remove-button,
   #customize-theme-controls.loftloader-controls-wrapper button.button.upload-button {
     font-size: 12px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.025em;
     font-weight: bold;
     color: #111;
     border-color: #41C7D3;
@@ -247,7 +247,7 @@
       float: right;
       padding-right: 5px;
       font-size: 12px;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.025em;
       font-weight: bold;
       color: #111; }
       .rtl #customize-theme-controls.loftloader-controls-wrapper li.customize-control.customize-control-slider span.customize-control-title + span {
@@ -261,7 +261,7 @@
         border: none;
         box-shadow: none;
         font-size: 12px;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.025em;
         font-weight: bold;
         color: #111;
         text-align: right; }
@@ -405,6 +405,10 @@
       opacity: 0.75; }
   #customize-theme-controls.loftloader-controls-wrapper li#customize-control-loftloader_customimg .current {
     margin-top: 15px; }
+  #customize-theme-controls.loftloader-controls-wrapper li#customize-control-loftloader_remove_settings .customize-control-title,
+  #customize-theme-controls.loftloader-controls-wrapper li#customize-control-loftloader_inline_js .customize-control-title {
+    display: block;
+    margin-bottom: 10px; }
   #customize-theme-controls.loftloader-controls-wrapper li.customize-control-number label {
     position: relative;
     display: block; }
@@ -413,7 +417,7 @@
       z-index: 9;
       font-size: 12px;
       font-weight: bold;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.025em;
       color: #111; }
       .rtl #customize-theme-controls.loftloader-controls-wrapper li.customize-control-number label > span:last-child {
         float: left; }

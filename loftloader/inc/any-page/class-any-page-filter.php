@@ -19,7 +19,7 @@ if ( ! class_exists('LoftLoader_Any_Page_Filter' ) ) {
 			$this->is_customize = isset( $wp_customize ) ? true : false;
 			if ( $this->is_any_page_extension_enabled() ) {
 				$page = $this->get_queried_object();
-				if ( ( $atts = $this->get_loader_attributes( $page->ID ) ) !== false ) {
+				if ( is_object( $page ) && isset( $page->ID ) && ( ( $atts = $this->get_loader_attributes( $page->ID ) ) !== false ) ) {
 					if ( isset( $atts['loftloader_show_close_tip'] ) ) {
 						$atts['loftloader_show_close_tip'] = base64_decode( $atts['loftloader_show_close_tip'] );
 					}

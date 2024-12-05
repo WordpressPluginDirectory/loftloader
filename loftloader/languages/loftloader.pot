@@ -1,33 +1,37 @@
-# Copyright (C) 2022 Loft.Ocean
+# Copyright (C) 2024 Loft.Ocean
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: LoftLoader 2.4\n"
+"Project-Id-Version: LoftLoader 2.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/loftloader\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-27T07:30:12+00:00\n"
+"POT-Creation-Date: 2024-10-16T02:22:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: loftloader\n"
 
 #. Plugin Name of the plugin
+#: loftloader.php
 msgid "LoftLoader"
 msgstr ""
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: loftloader.php
 msgid "http://www.loftocean.com/"
 msgstr ""
 
 #. Description of the plugin
+#: loftloader.php
 msgid "An easy to use plugin to add an animated preloader to your website with fully customisations."
 msgstr ""
 
 #. Author of the plugin
+#: loftloader.php
 msgid "Loft.Ocean"
 msgstr ""
 
@@ -62,11 +66,11 @@ msgstr ""
 msgid "More info"
 msgstr ""
 
-#: inc/class-loftloader-front.php:221
+#: inc/class-loftloader-front.php:222
 msgid "Close"
 msgstr ""
 
-#: inc/class-loftloader-front.php:363
+#: inc/class-loftloader-front.php:376
 msgid "loader image"
 msgstr ""
 

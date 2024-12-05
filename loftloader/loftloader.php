@@ -3,7 +3,7 @@
 Plugin Name: LoftLoader
 Plugin URI: http://www.loftocean.com/
 Description: An easy to use plugin to add an animated preloader to your website with fully customisations.
-Version: 2.4.0
+Version: 2.5.1
 Requires PHP: 5.6
 Requires at least: 5.0
 Author: Loft.Ocean
@@ -34,7 +34,7 @@ if ( ! class_exists( 'LoftLoader' ) ) {
 	define( 'LOFTLOADER_ROOT', dirname( __FILE__ ) . '/' );
 	define( 'LOFTLOADER_NAME', plugin_basename( __FILE__  ) );
 	define( 'LOFTLOADER_URI',  plugin_dir_url( __FILE__ ) );
-	define( 'LOFTLOADER_ASSET_VERSION', '2022112601' );
+	define( 'LOFTLOADER_ASSET_VERSION', '2024112801' );
 
 	class LoftLoader {
 		public function __construct() {
